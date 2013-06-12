@@ -14,9 +14,11 @@ so projects can be hosted via GitHub Pages.
 * Simple commands work
 
      // JS: map.centerAndZoom( [ -70, 40 ], 11 );
+     
      # Python: map.centerAndZoom( [ -70, 40 ], 11 )
 
 * More complex commands where JavaScript uses the 'new' keyword or anonymous functions are proving difficult:
 
      // JS: new esri.geometry.Point( [-70, 40], { "wkid": 4326 } );
+     
      // # Python: esri.geometry.Point( [-70, 40], { "wkid": 4326 } )
