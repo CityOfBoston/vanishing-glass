@@ -15,12 +15,14 @@ map.centerAndZoom( [ -71, 42 ], 8 )
 
 # test creating a point, adding a marker
 
-pt = Point( [-71, 42], SpatialReference({ "wkid": 4326 } ) )
+sr = SpatialReference( { "wkid": 4326 } )
+console.log(sr)
+
+pt = Point( [-71, 42], sr )
 
 symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
 
 gr = Graphic( pt, symbol )
-console.log(gr)
 
 map.graphics.add( gr )
 
