@@ -20,20 +20,7 @@
       dojo.require("esri.map");
       dojo.require("esri.geometry");
       
-      dojo.ready(function(){
-        pointmaker = function(pt, sr){
-          return new esri.geometry.Point(pt, sr);
-        };
-        picturemaker = function(img, w, h){
-          return new esri.symbol.PictureMarkerSymbol(img, w, h);
-        };
-        graphicmaker = function(geo, sym){
-          return new esri.Graphic( geo, sym )
-        };
-        srmaker = function(def){
-          return new esri.spatialReference( def );
-        };
-      
+      dojo.ready(function(){      
         main_map = new esri.Map("main_map", {
           basemap: "topo",
           center: [-71.05854, 42.359686],

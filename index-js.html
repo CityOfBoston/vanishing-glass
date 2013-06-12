@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Brython Maps API</title>
+
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
+    
+    <script type="text/javascript">var dojoConfig = { parseOnLoad:true };</script>
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>
+
+    <script type="text/javascript">
+      dojo.require("dojo.parser");
+      dojo.require("esri.map");
+      
+      dojo.ready(function(){      
+        map = new esri.Map("map", {
+          basemap: "topo",
+          center: [-71.05854, 42.359686],
+          zoom: 10,
+          isPan: true,
+          isPanArrows: true,
+          isZoomSlider: true,
+          isScrollWheelZoom: true
+        });
+        
+        map.onLoad = function(){
+        
+          // re-center map
+          map.centerAndZoom( [ -71, 42 ], 8 )
+
+          // test creating a point, adding a marker
+          
+          var sr = new esri.SpatialReference( { "wkid": 4326 } )
+          
+          var pt = new esri.geometry.Point( [-71, 42], sr )
+          
+          var symbol = new esri.symbol.PictureMarkerSymbol( "marker.png", 40, 40 )
+          
+          var gr = new esri.Graphic( pt, symbol )
+          
+          map.graphics.add( gr )
+        
+          // test output to console
+          console.log(map);
+        };
+      });
+    </script>
+    <style type="text/css">
+html, body, #map{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: arial, sans-serif;
+  overflow: hidden;
+}
+    </style>
+  </head>
+  <body>
+    <div id="map">
+    </div>
+  </body>
+</html>

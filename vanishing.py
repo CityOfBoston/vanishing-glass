@@ -2,27 +2,23 @@
 # Python that controls an ArcGIS webmap
 
 # import essential JS objects
-map = JSObject(main_map)
+main_map = JSObject(main_map)
 esri = JSObject(esri)
-Point = JSObject(pointmaker)
-PictureMarkerSymbol = JSObject(picturemaker)
-Graphic = JSObject(graphicmaker)
-SpatialReference = JSObject(srmaker)
 
 # re-center map
-map.centerAndZoom( [ -71, 42 ], 8 )
+main_map.centerAndZoom( [ -71, 42 ], 8 )
 
 # test creating a point, adding a marker
 
-sr = SpatialReference( { "wkid": 4326 } )
+sr = esri.SpatialReference( { "wkid": 4326 } )
 
-pt = Point( [-71, 42], sr )
+pt = esri.geometry.Point( [-71, 42], sr )
 
-symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
+symbol = esri.symbol.PictureMarkerSymbol( "marker.png", 40, 40 )
 
-gr = Graphic( pt, symbol )
+gr = esri.Graphic( pt, symbol )
 
-map.graphics.add( gr )
+main_map.graphics.add( gr )
 
 # test output to console
-JSObject(console).log(map)
+JSObject(console).log(main_map)
