@@ -2,6 +2,8 @@
 // version 1.1.20130611-092246
 // version compiled from commented, indented source files at https://bitbucket.org/olemis/brython/src
 
+var documentr = document;
+
 __BRYTHON__=new Object()
 __BRYTHON__.__getattr__=function(attr){return this[attr]}
 __BRYTHON__.language=window.navigator.userLanguage || window.navigator.language
@@ -224,14 +226,14 @@ var trace=err.__name__+': '+err.message
 if(err.__name__=='SyntaxError'||err.__name__==='IndentationError'){
 trace +=err.info
 }
-document.$stderr.__getattr__('write')(trace)
+documentr.$stderr.__getattr__('write')(trace)
 err.message +=err.info
 throw err
 }
 function $src_error(name,module,msg,pos){
 var pos2line={}
 var lnum=1
-var src=document.$py_src[module]
+var src=documentr.$py_src[module]
 var line_pos={1:0}
 for(i=0;i<src.length;i++){
 pos2line[i]=lnum
@@ -418,12 +420,12 @@ return f
 }
 var $dq_regexp=new RegExp('"',"g")
 function $escape_dq(arg){return arg.replace($dq_regexp,'\\"')}
-document.$stderr={
+documentr.$stderr={
 __getattr__:function(attr){return this[attr]},
 'write':function(data){console.log(data)}
 }
-document.$stderr_buff='' 
-document.$stdout={
+documentr.$stderr_buff='' 
+documentr.$stdout={
 __getattr__:function(attr){return this[attr]},
 write: function(data){console.log(data)}
 }
@@ -458,11 +460,11 @@ this.arg=arg
 }
 function $pdict(arg){return new $pdict_class(arg)}
 function $test_item(expr){
-document.$test_result=expr
+documentr.$test_result=expr
 return bool(expr)
 }
 function $test_expr(){
-return document.$test_result
+return documentr.$test_result
 }
 Function.prototype.__call__=function(){
 var res=this.apply(null,arguments)
@@ -1371,7 +1373,7 @@ throw TypeError("object of type '"+obj.__class__.__name__+"' has no len()")}
 }
 function locals(obj_id){
 if(__BRYTHON__.scope[obj_id]===undefined){
-var module=document.$line_info[1]
+var module=documentr.$line_info[1]
 return globals(module)
 }
 var res=dict()
@@ -1508,7 +1510,7 @@ res +=str(args[i])
 if(i<args.length-1){res +=' '}
 }
 res +=end
-document.$stdout.__getattr__('write')(res)
+documentr.$stdout.__getattr__('write')(res)
 }
 log=function(arg){console.log(arg)}
 function $prompt(text,fill){return prompt(text,fill || '')}
@@ -1944,10 +1946,10 @@ None=new $NoneClass()
 Exception=function(msg){
 var err=Error()
 err.info=''
-if(document.$debug && msg.split('\n').length==1){
-var module=document.$line_info[1]
-var line_num=document.$line_info[0]
-var lines=document.$py_src[module].split('\n')
+if(documentr.$debug && msg.split('\n').length==1){
+var module=documentr.$line_info[1]
+var line_num=documentr.$line_info[0]
+var lines=documentr.$py_src[module].split('\n')
 err.info +="\nmodule '"+module+"' line "+line_num
 err.info +='\n'+lines[line_num-1]
 }
@@ -3269,7 +3271,7 @@ while(ctx_node.type!=='node'){ctx_node=ctx_node.parent}
 var tree_node=ctx_node.node
 var module=tree_node.module
 var line_num=tree_node.line_num
-document.$line_info=[line_num,module]
+documentr.$line_info=[line_num,module]
 if(indent===undefined){$SyntaxError(module,'invalid syntax',$pos)}
 else{throw $IndentationError(module,msg,$pos)}
 }
@@ -4252,7 +4254,7 @@ env_str +='}'
 var ctx_node=this
 while(ctx_node.parent!==undefined){ctx_node=ctx_node.parent}
 var module=ctx_node.node.module
-var src=document.$py_src[module]
+var src=documentr.$py_src[module]
 var qesc=new RegExp('"',"g")
 var args=src.substring(this.args_start,this.body_start).replace(qesc,'\\"')
 var body=src.substring(this.body_start+1,this.body_end).replace(qesc,'\\"')
@@ -4281,7 +4283,7 @@ this.get_src=function(){
 var ctx_node=this
 while(ctx_node.parent!==undefined){ctx_node=ctx_node.parent}
 var module=ctx_node.node.module
-return document.$py_src[module]
+return documentr.$py_src[module]
 }
 this.to_js=function(){
 if(this.real==='list'){return 'list(['+$to_js(this.tree)+'])'}
@@ -4612,7 +4614,7 @@ if(elt.type==='condition' && elt.token==='elif'){flag=false}
 else if(elt.type==='except'){flag=false}
 else if(elt.type==='single_kw'){flag=false}
 if(flag){
-js='document.$line_info=['+node.line_num+',"'+node.module+'"]'
+js='documentr.$line_info=['+node.line_num+',"'+node.module+'"]'
 var new_node=new $Node('expression')
 new $NodeJSCtx(new_node,js)
 node.parent.insert(rank,new_node)
@@ -5381,13 +5383,13 @@ if(src.charAt(src.length-1)!="\n"){src+='\n'}
 if(module===undefined){module='__main__'}
 __BRYTHON__.scope[module]={}
 __BRYTHON__.scope[module].__dict__={}
-document.$py_src[module]=src
+documentr.$py_src[module]=src
 var root=$tokenize(src,module)
 root.transform()
-if(document.$debug>0){$add_line_num(root,null,module)}
+if(documentr.$debug>0){$add_line_num(root,null,module)}
 return root
 }
-__BRYTHON__.forbidden=['catch','Date','delete','default','document',
+__BRYTHON__.forbidden=['catch','Date','delete','default','documentr',
 'function','location','Math','new','RegExp','this','throw','var','super','window']
 function $tokenize(src,module){
 var delimiters=[["#","\n","comment"],['"""','"""',"triple_string"],
@@ -5709,21 +5711,21 @@ $_SyntaxError(C,'expected an indented block',pos)
 return root
 }
 function brython(options){
-document.$py_src={}
+documentr.$py_src={}
 __BRYTHON__.$py_module_path={}
 __BRYTHON__.$py_module_alias={}
 __BRYTHON__.modules={}
 __BRYTHON__.$py_next_hash=-Math.pow(2,53)
-document.$debug=0
+documentr.$debug=0
 if(options===undefined){options={'debug':0}}
 if(typeof options==='number'){options={'debug':options}}
 if(options.debug==1 || options.debug==2){
-document.$debug=options.debug
+documentr.$debug=options.debug
 }
 __BRYTHON__.$options=options
 __BRYTHON__.exception_stack=[]
 __BRYTHON__.scope={}
-var $elts=document.getElementsByTagName("script")
+var $elts=documentr.getElementsByTagName("script")
 var $href=window.location.href
 var $href_elts=$href.split('/')
 $href_elts.pop()
@@ -5785,7 +5787,7 @@ __BRYTHON__.$py_module_path['__main__']='.'
 try{
 var $root=__BRYTHON__.py2js($src,'__main__')
 var $js=$root.to_js()
-if(document.$debug===2){console.log($js)}
+if(documentr.$debug===2){console.log($js)}
 eval($js)
 }catch($err){
 if($err.py_error===undefined){$err=RuntimeError($err+'')}
@@ -5793,7 +5795,7 @@ var $trace=$err.__name__+': '+$err.message
 if($err.__name__=='SyntaxError'||$err.__name__==='IndentationError'){
 $trace +=$err.info
 }
-document.$stderr.__getattr__('write')($trace)
+documentr.$stderr.__getattr__('write')($trace)
 $err.message +=$err.info
 throw $err
 }
@@ -5828,16 +5830,16 @@ $xmlhttp.$ajax=this
 $xmlhttp.$requestTimer=null
 $xmlhttp.onreadystatechange=function(){
 var state=this.readyState
-var req=this.$ajax
+var reqajax=this.$ajax
 var timer=this.$requestTimer
 var obj=new $XmlHttpClass($xmlhttp)
-if(state===0 && 'on_uninitialized' in req){req.on_uninitialized(obj)}
-else if(state===1 && 'on_loading' in req){req.on_loading(obj)}
-else if(state===2 && 'on_loaded' in req){req.on_loaded(obj)}
-else if(state===3 && 'on_interactive' in req){req.on_interactive(obj)}
-else if(state===4 && 'on_complete' in req){
+if(state===0 && 'on_uninitialized' in reqajax){reqajax.on_uninitialized(obj)}
+else if(state===1 && 'on_loading' in reqajax){reqajax.on_loading(obj)}
+else if(state===2 && 'on_loaded' in reqajax){reqajax.on_loaded(obj)}
+else if(state===3 && 'on_interactive' in reqajax){reqajax.on_interactive(obj)}
+else if(state===4 && 'on_complete' in reqajax){
 if(timer !==null){window.clearTimeout(timer)}
-req.on_complete(obj)
+reqajax.on_complete(obj)
 }
 }
 this.__class__=Ajax
@@ -5899,10 +5901,10 @@ if(ev.pageX || ev.pageY){
 posx=ev.pageX
 posy=ev.pageY
 }else if(ev.clientX || ev.clientY){
-posx=ev.clientX + document.body.scrollLeft
-+ document.documentElement.scrollLeft
-posy=ev.clientY + document.body.scrollTop
-+ document.documentElement.scrollTop
+posx=ev.clientX + documentr.body.scrollLeft
++ documentr.documentrElement.scrollLeft
+posy=ev.clientY + documentr.body.scrollTop
++ documentr.documentrElement.scrollTop
 }
 var res=object()
 res.x=int(posx)
@@ -5913,7 +5915,7 @@ return res
 }
 var $DOMNodeAttrs=['nodeName','nodeValue','nodeType','parentNode',
 'childNodes','firstChild','lastChild','previousSibling','nextSibling',
-'attributes','ownerDocument']
+'attributes','ownerdocumentr']
 function $isNode(obj){
 for(var i=0;i<$DOMNodeAttrs.length;i++){
 if(obj[$DOMNodeAttrs[i]]===undefined){return false}
@@ -5957,9 +5959,9 @@ $NodeTypes={1:"ELEMENT",
 6:"ENTITY",
 7:"PROCESSING_INSTRUCTION",
 8:"COMMENT",
-9:"DOCUMENT",
-10:"DOCUMENT_TYPE",
-11:"DOCUMENT_FRAGMENT",
+9:"documentr",
+10:"documentr_TYPE",
+11:"documentr_FRAGMENT",
 12:"NOTATION"
 }
 function DOMEvent(){}
@@ -6145,7 +6147,7 @@ res.children=[this]
 if(isinstance(other,$TagSum)){
 for(var $i=0;$i<other.children.length;$i++){res.children.push(other.children[$i])}
 }else if(isinstance(other,[str,int,float,list,dict,set,tuple])){
-res.children.push(document.createTextNode(str(other)))
+res.children.push(documentr.createTextNode(str(other)))
 }else{res.children.push(other)}
 return res
 }
@@ -6156,7 +6158,7 @@ catch(err){return False}
 }
 DOMNode.prototype.__delitem__=function(key){
 if(this.nodeType===9){
-var res=document.getElementById(key)
+var res=documentr.getElementById(key)
 if(res){res.parentNode.removeChild(res)}
 else{throw KeyError(key)}
 }else{
@@ -6202,12 +6204,12 @@ return $getattr(this,attr)
 DOMNode.prototype.__getitem__=function(key){
 if(this.nodeType===9){
 if(typeof key==="string"){
-var res=document.getElementById(key)
+var res=documentr.getElementById(key)
 if(res){return $DOMNode(res)}
 else{throw KeyError(key)}
 }else{
 try{
-var elts=document.getElementsByTagName(key.name),res=[]
+var elts=documentr.getElementsByTagName(key.name),res=[]
 for(var $i=0;$i<elts.length;$i++){res.push($DOMNode(elts[$i]))}
 return res
 }catch(err){
@@ -6231,7 +6233,7 @@ for($i=0;$i<other.children.length;$i++){
 obj.appendChild(other.children[$i])
 }
 }else if(typeof other==="string" || typeof other==="number"){
-var $txt=document.createTextNode(other.toString())
+var $txt=documentr.createTextNode(other.toString())
 obj.appendChild($txt)
 }else{
 obj.appendChild(other)
@@ -6253,7 +6255,7 @@ throw ValueError("can't multiply "+this.__class__+"by "+other)
 DOMNode.prototype.__ne__=function(other){return !this.__eq__(other)}
 DOMNode.prototype.__radd__=function(other){
 var res=$TagSum()
-var txt=document.createTextNode(other)
+var txt=documentr.createTextNode(other)
 res.children=[txt,this]
 return res 
 }
@@ -6287,7 +6289,7 @@ if(obj.getElementsByName===undefined){
 throw TypeError("DOMNode object doesn't support selection by name")
 }
 var res=[]
-var node_list=document.getElementsByName($ns['kw'].__getitem__('name'))
+var node_list=documentr.getElementsByName($ns['kw'].__getitem__('name'))
 if(node_list.length===0){return[]}
 for(var i=0;i<node_list.length;i++){
 res.push($DOMNode(node_list[i]))
@@ -6298,7 +6300,7 @@ if(obj.getElementsByTagName===undefined){
 throw TypeError("DOMNode object doesn't support selection by tag name")
 }
 var res=[]
-var node_list=document.getElementsByTagName($ns['kw'].__getitem__('tag'))
+var node_list=documentr.getElementsByTagName($ns['kw'].__getitem__('tag'))
 if(node_list.length===0){return[]}
 for(var i=0;i<node_list.length;i++){
 res.push($DOMNode(node_list[i]))
@@ -6309,7 +6311,7 @@ if(obj.getElementsByClassName===undefined){
 throw TypeError("DOMNode object doesn't support selection by class name")
 }
 var res=[]
-var node_list=document.getElementsByClassName($ns['kw'].__getitem__('classname'))
+var node_list=documentr.getElementsByClassName($ns['kw'].__getitem__('classname'))
 if(node_list.length===0){return[]}
 for(var i=0;i<node_list.length;i++){
 res.push($DOMNode(node_list[i]))
@@ -6430,12 +6432,12 @@ this.innerText=str(value)
 this.textContent=str(value)
 }
 DOMNode.prototype.set_value=function(value){this.value=value.toString()}
-doc=$DOMNode(document)
+doc=$DOMNode(documentr)
 doc.headers=function(){
-var req=new XMLHttpRequest()
-req.open('GET', document.location, false)
-req.send(null)
-var headers=req.getAllResponseHeaders()
+var reqajax=new XMLHttpRequest()
+reqajax.open('GET', documentr.location, false)
+reqajax.send(null)
+var headers=reqajax.getAllResponseHeaders()
 headers=headers.split('\r\n')
 var res=dict()
 for(var i=0;i<headers.length;i++){
@@ -6503,13 +6505,13 @@ $TagSumClass.prototype.__add__=function(other){
 if(isinstance(other,$TagSum)){
 this.children=this.children.concat(other.children)
 }else if(isinstance(other,str)){
-this.children=this.children.concat(document.createTextNode(other))
+this.children=this.children.concat(documentr.createTextNode(other))
 }else{this.children.push(other)}
 return this
 }
 $TagSumClass.prototype.__radd__=function(other){
 var res=$TagSum()
-res.children=this.children.concat(document.createTextNode(other))
+res.children=this.children.concat(documentr.createTextNode(other))
 return res
 }
 $TagSumClass.prototype.clone=function(){
@@ -6525,7 +6527,7 @@ return new $TagSumClass()
 var $toDOM=function(content){
 if(isinstance(content,DOMNode)){return content}
 if(isinstance(content,str)){
-var _dom=document.createElement('html')
+var _dom=documentr.createElement('html')
 _dom.innerHTML=content
 return _dom
 }
@@ -6644,20 +6646,20 @@ alert('WebSocket are not supported!')
 	else{
 var $socket=new WebSocket(host)
 $socket.onopen=function(){
-	var req=this.$websocket
-	if('on_open' in req){req.on_open()}
+	var reqajax=this.$websocket
+	if('on_open' in reqajax){reqajax.on_open()}
 }
 $socket.onclose=function(close){
-	var req=this.$websocket
-	if('on_close' in req){req.on_close(JSObject(close))}
+	var reqajax=this.$websocket
+	if('on_close' in reqajax){reqajax.on_close(JSObject(close))}
 }
 $socket.onerror=function(){
-	var req=this.$websocket
-	if('on_error' in req){req.on_error()}
+	var reqajax=this.$websocket
+	if('on_error' in reqajax){reqajax.on_error()}
 }
 $socket.onmessage=function(message){
-	var req=this.$websocket
-	if('on_message' in req){req.on_message(JSObject(message))}	
+	var reqajax=this.$websocket
+	if('on_message' in reqajax){reqajax.on_message(JSObject(message))}	
 }
 }	
 $socket.$websocket=this

@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
     <title>Brython Maps API</title>
+
+<!--
+    <script type="text/javascript" src="brython.js"></script>
+-->
 
     <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
     <script type="text/javascript">var dojoConfig = { parseOnLoad:true };</script>
-    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>
-    <script type="text/javascript" src="brython.js"></script>
+    <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/"></script>
 
     <script type="text/javascript">
+      var main_map;
       dojo.require("esri.map");
-      dojo.ready(brython);
+      
+      dojo.ready(function(){
+        main_map = new esri.Map("main_map", {
+          basemap: "topo",
+          center: [-71.05854, 42.359686],
+          zoom: 10
+        });
+        main_map.onLoad = function(){
+          var s = document.createElement("script");
+          s.type = "text/javascript";
+          s.src = "brython.js";
+          s.onload = function(){ brython(); };
+          document.body.appendChild(s);
+        };
+      });
     </script>
-    <script type="text/python">
-  JSObject(esri).Map("map", {
-    "basemap": "topo",
-    "center": [-103.272, 39.096],
-    "zoom": 4,
-    "slider": False
-  })
-    </script>
+    <script type="text/python" src="vanishing.py"></script>
 
     <style type="text/css">
-html, body, #map{
+html, body, #main_map{
   height: 100%;
   width: 100%;
   padding: 0;
@@ -33,8 +46,8 @@ html, body, #map{
 }
     </style>
   </head>
-  <body>
-    <div id="map">
+  <body class="nihilo">
+    <div id="main_map" class="shadow" data-dojo-type="dijit.layout.ContentPane">
     </div>
   </body>
 </html>
