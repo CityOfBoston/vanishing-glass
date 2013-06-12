@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Brython Maps API</title>
+    <script type="text/javascript">var dojoConfig = { parseOnLoad:true };</script>
+    <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5compact/"></script>
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
+
+    <script type="text/javascript" src="brython.js"></script>
+
+    <style type="text/css">
+html, body, #map{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: arial, sans-serif;
+}
+    </style>
+  </head>
+  <body>
+    <div id="map">
+    </div>
+    <script type="text/javascript">
+      dojo.require("esri.map");
+      dojo.ready(brython);
+    </script>
+    <script type="text/python">
+  JSObject(esri).Map("map", {
+    "center": [-103.272, 39.096],
+    "zoom": 4,
+    "slider": False
+  })
+    </script>
+  </body>
+</html>
