@@ -15,7 +15,6 @@ map.centerAndZoom( [ -71, 42 ], 8 )
 # test creating a point, adding a marker
 
 sr = SpatialReference( { "wkid": 4326 } )
-brython(sr)
 
 pt = Point( [-71, 42], sr )
 
@@ -26,4 +25,4 @@ gr = Graphic( pt, symbol )
 map.graphics.add( gr )
 
 # test output to console
-brython(map)
+JSObject(console).log(map)
