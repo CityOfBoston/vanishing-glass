@@ -24,8 +24,21 @@ html, body, #main_map{
     <script type="text/javascript">
       dojo.require("esri.map");
       dojo.require("esri.geometry");
+
+      var ptmaker = function(coord, sr){
+        return new esri.js.geometry.Point( coord, sr.js );
+      };
+      var picmaker = function(pic, w, h){
+        return new esri.js.symbol.PictureMarkerSymbol( pic, w, h );
+      };
+      var grmaker = function(pt, symbol){
+        return new esri.js.Graphic( pt, symbol );
+      };
+      var wgs84;
       
       dojo.ready(function(){      
+        wgs84 = new esri.SpatialReference( { wkid: 4326 } );
+      
         main_map = new esri.Map("main_map", {
           basemap: "topo",
           center: [-71.05854, 42.359686],
@@ -41,7 +54,7 @@ html, body, #main_map{
         });
       });
     </script>
-    <script type="text/python" src="vanishing.py"></script>
+    <script type="text/python" src="vanishing.py?v=2"></script>
   </head>
   <body class="nihilo">
     <div id="main_map" class="shadow" data-dojo-type="dijit.layout.ContentPane">
