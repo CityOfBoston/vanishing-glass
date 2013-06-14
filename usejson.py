@@ -26,7 +26,11 @@ def on_complete(req):
         JSObject(console).log("got points")
         JSObject(console).log( len( mypts["features"] ) )
         
-        for feature in mypts["js"]["features"]:
+        for feature in mypts:
+          JSObject(console).log( "found a feature" )
+          JSObject(console).log( feature )
+          continue
+        
           # test creating a point, adding a marker
           pt = Point( [ feature["geometry"]["x"] , feature["geometry"]["y"] ], SpatialReference )
           symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
