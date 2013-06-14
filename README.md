@@ -3,6 +3,12 @@ The GIS / Mapping world is divided into desktop mappers (using Python) and web m
 Vanishing-Glass is an experiment to bridge the gap, and make interactive mapping and custom data maps accessible in 100% Python. The code is all client-side,
 so projects can be hosted via GitHub Pages.
 
+<h2>Examples</h2>
+
+<a href="http://mapmeld.github.io/vanishing-glass/">An example map</a> which adds a marker to a map. <a href="https://github.com/mapmeld/vanishing-glass/blob/gh-pages/vanishing.py">Python source</a>
+
+<a href="http://mapmeld.github.io/vanishing-glass/usejson.html">A more complex example</a>, loading JSON from ArcGIS Server API.
+
 <h2>Components</h2>
 
 <a href="http:/brython.info">Brython</a> is an open source (New BSD License) framework to write web apps and client-side code in Python
@@ -21,4 +27,14 @@ so projects can be hosted via GitHub Pages.
 
      // JS: new esri.geometry.Point( [-70, 40], { "wkid": 4326 } );
      
-     // # Python: esri.geometry.Point( [-70, 40], { "wkid": 4326 } )
+     # Python: esri.geometry.Point( [-70, 40], { "wkid": 4326 } )
+
+* The workaround for using the 'new' keyword is currently using a JavaScript function to return an initialized object to the Brython script
+
+     // Old JS: new esri.geometry.Point( [-70, 40], { "wkid": 4326 } );
+     
+     becomes
+     
+     // New JS: ptmaker = function(lnglat, sr){ return new esri.geometry.Point( lnglat, sr ); };
+     
+     # Python: ptmaker( [ -70, -40 ], { "wkid": 4326 } )
