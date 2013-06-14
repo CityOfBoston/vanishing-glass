@@ -25,8 +25,13 @@ def on_complete(req):
         # returned successfully
         mypts = JSObject( jsonparse( req.text ) )
         JSObject(console).log("about to look at points")
+
+        try:
+          features = mypts["features"]
+        except:
+          features = mypts
         
-        for feature in mypts["features"]:
+        for feature in features:
           JSObject(console).log( "found a feature" )
           JSObject(console).log( feature )
           continue
