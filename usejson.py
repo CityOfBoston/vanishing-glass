@@ -40,5 +40,5 @@ def on_complete(req):
 req = ajax()
 req.on_complete = on_complete
 #req.set_timeout(timeout, err_msg)
-req.open('GET', 'samplejson.json', True)
+req.open('GET', 'samplejson.json?v=2', True)
 req.send()
