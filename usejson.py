@@ -19,13 +19,13 @@ main_map.centerAndZoom( [ -71, 42 ], 8 )
 
 # define what to do with JSON returned
 def on_complete(req):
-    JSObject(console).log("completed")
-    JSObject(console).log(req.status)
     
     if req.status==200 or req.status==0:
         # returned successfully
         mypts = json.parse( req.text )
-        # JSObject(console).log(mypts)
+        JSObject(console).log("got points")
+        JSObject(console).log( len( mypts["features"] ) )
+        
         for feature in mypts["features"]:
           # test creating a point, adding a marker
           pt = Point( [ feature["geometry"]["x"] , feature["geometry"]["y"] ], SpatialReference )
