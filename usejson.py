@@ -23,7 +23,7 @@ def on_complete(req):
     
     if req.status==200 or req.status==0:
         # returned successfully
-        mypts = jsonparse( req.text )
+        mypts = JSObject( jsonparse( req.text ) )
         JSObject(console).log("about to look at points")
         
         for feature in mypts["features"]:
