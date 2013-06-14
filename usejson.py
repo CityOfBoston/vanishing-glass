@@ -25,24 +25,20 @@ def on_complete(req):
     if req.status==200 or req.status==0:
         # returned successfully
         mypts = json.parse( req.text )
-        JSObject(console).log(mypts)
+        # JSObject(console).log(mypts)
+        for feature in mypts["features"]:
+          # test creating a point, adding a marker
+          pt = Point( [ feature["geometry"]["x"] , feature["geometry"]["y"] ], SpatialReference )
+          symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
+          gr = Graphic( pt, symbol )
+          main_map.graphics.add(gr)
     else:
         # failed
         alert( req.text )
 
-# make an AJAX request to ArcGIS Server
+# make an AJAX request
 req = ajax()
 req.on_complete = on_complete
 #req.set_timeout(timeout, err_msg)
 req.open('GET', 'samplejson.json', True)
 req.send()
-
-# test creating a point, adding a marker
-
-pt = Point( [-71, 42], SpatialReference )
-
-symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
-
-gr = Graphic( pt, symbol )
-
-main_map.graphics.add(gr)
