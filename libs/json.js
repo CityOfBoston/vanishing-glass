@@ -4,8 +4,12 @@ $module =  {
 
     parse : function(json_obj){
         var res = JSON.parse(json_obj)
-        var _class = res['class']
-        if(_class===undefined){return $JS2Py(res)}
+        var _class = res['class'];
+        console.log(_class);
+        if(_class===undefined){
+          console.log( $JS2Py(res) );
+          return $JS2Py(res);
+        }
         else if(['int','str','list'].indexOf(_class)>-1){return res.obj}
         else if(_class==='float'){return res.obj.value}
         else if(_class==='dict'){
