@@ -34,6 +34,9 @@ html, body, #main_map{
       var grmaker = function(pt, symbol){
         return new esri.js.Graphic( pt, symbol );
       };
+      var jsonparse = function(txt){
+       return JSON.parse(txt);
+      }
       var wgs84;
       
       dojo.ready(function(){      
@@ -54,7 +57,7 @@ html, body, #main_map{
         });
       });
     </script>
-    <script type="text/python" src="usejson.py?v=7"></script>
+    <script type="text/python" src="usejson.py?v=8"></script>
   </head>
   <body class="nihilo">
     <div id="main_map" class="shadow" data-dojo-type="dijit.layout.ContentPane">
