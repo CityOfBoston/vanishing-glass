@@ -6484,7 +6484,7 @@ if(result===undefined){return[]}
 return result
 }
 res.getvalue=function(key,_default){
-try{return res.__getitem__(key)}
+try{return res.__getitem__(key) || res[key] }
 catch(err){
 $pop_exc()
 if(_default===undefined){return None}
