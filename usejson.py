@@ -16,7 +16,7 @@ Graphic = JSObject(grmaker)
 jsonparse = JSObject(jsonparse)
 
 # re-center map
-main_map.centerAndZoom( [ -71, 42 ], 8 )
+main_map.centerAndZoom( [ -71.08017, 42.355626 ], 11 )
 
 # define what to do with JSON returned
 def on_complete(req):
@@ -31,7 +31,7 @@ def on_complete(req):
 
           # test creating a point, adding a marker          
           pt = Point( [ feature.geometry.x.value , feature.geometry.y.value ], SpatialReference )
-          symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
+          symbol = PictureMarkerSymbol( "marker.png", 22, 22 )
           gr = Graphic( pt, symbol )
           main_map.graphics.add(gr)
     else:
