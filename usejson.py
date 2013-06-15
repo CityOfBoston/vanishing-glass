@@ -23,21 +23,12 @@ def on_complete(req):
     
     if req.status==200 or req.status==0:
         # returned successfully
-        mypts = JSObject( jsonparse( req.text ) )
-        JSObject(console).log("about to look at points")
+        mypts = JSObject( jsonparse( req.text ) )        
+        
+        for feature in mypts.features:
 
-        try:
-          features = mypts["features"]
-        except:
-          features = mypts
-        
-        for feature in features:
-          JSObject(console).log( "found a feature" )
-          JSObject(console).log( feature )
-          continue
-        
-          # test creating a point, adding a marker
-          pt = Point( [ feature["geometry"]["x"] , feature["geometry"]["y"] ], SpatialReference )
+          # test creating a point, adding a marker          
+          pt = Point( [ feature.geometry.x.value , feature.geometry.y.value ], SpatialReference )
           symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
           gr = Graphic( pt, symbol )
           main_map.graphics.add(gr)
