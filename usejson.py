@@ -27,6 +27,8 @@ def on_complete(req):
         
         for feature in mypts.features:
 
+          feature = JSObject(feature)
+
           # test creating a point, adding a marker          
           pt = Point( [ feature.geometry.x.value , feature.geometry.y.value ], SpatialReference )
           symbol = PictureMarkerSymbol( "marker.png", 40, 40 )
