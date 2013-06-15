@@ -29,6 +29,17 @@ def on_complete(req):
 
           feature = JSObject(feature)
 
+          # can decide how to map these points using Python code
+          # for example:
+          # if feature.attributes.HANDICAP == "Yes":
+          #   markerpng = "accessible.png"
+          # else:
+          #   markerpng = "unaccessible.png"
+          #
+          
+          if feature.attributes.Voter_Entrance is None:
+            JSObject(console).log(  feature.attributes.NAME + " missing Voter_Entrance details" )
+
           # test creating a point, adding a marker          
           pt = Point( [ feature.geometry.x.value , feature.geometry.y.value ], SpatialReference )
           symbol = PictureMarkerSymbol( "marker.png", 22, 22 )
