@@ -14,7 +14,15 @@ html, body, #main_map{
   width: 100%;
   padding: 0;
   margin: 0;
-  font-family: arial, sans-serif;
+  font-family: georgia, arial, sans-serif;
+}
+#overlay{
+  width: 20%;
+  position: absolute;
+  right: 5%;
+  top: 50px;
+  background-color: #fff;
+  padding: 15px;
 }
     </style>
 
@@ -61,6 +69,11 @@ html, body, #main_map{
   </head>
   <body class="nihilo">
     <div id="main_map" class="shadow" data-dojo-type="dijit.layout.ContentPane">
+    </div>
+    <div id="overlay">
+      <h3>Vanishing-Glass</h3>
+      <p>This map was made with <a href="http://brython.info">client-side Python</a>, Esri's JavaScript API, and JSON data.</p>
+      <p><a href="https://github.com/mapmeld/vanishing-glass/blob/gh-pages/usejson.py">Python source</a> and <a href="https://github.com/mapmeld/vanishing-glass">full project</a> on GitHub</p>
     </div>
   </body>
 </html>
