@@ -51,13 +51,13 @@ html, body, #main_map{
         dojo.connect(main_map, "onLoad", function(){
           var s = document.createElement("script");
           s.type = "text/javascript";
-          s.src = "brython.js?v=2";
+          s.src = "brython.js?v=3";
           s.onload = function(){ brython(); };
           document.body.appendChild(s);
         });
       });
     </script>
-    <script type="text/python" src="usejson.py?v=11"></script>
+    <script type="text/python" src="usejson.py?v=14"></script>
   </head>
   <body class="nihilo">
     <div id="main_map" class="shadow" data-dojo-type="dijit.layout.ContentPane">
