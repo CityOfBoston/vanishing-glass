@@ -1,4 +1,4 @@
-The GIS / Mapping world is divided into desktop mappers (using Python) and web mappers (using JavaScript and other technologies, but mostly JavaScript)
+The GIS / Mapping world is divided into desktop mappers (using Python) and web mappers (using JavaScript and other technologies, but mostly JavaScript).
 
 Vanishing-Glass is an experiment to bridge the gap, and make interactive mapping and custom data maps accessible in 100% Python. The code is all client-side,
 so projects can be hosted via GitHub Pages.
