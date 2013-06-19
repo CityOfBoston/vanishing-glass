@@ -5,9 +5,9 @@ so projects can be hosted via GitHub Pages.
 
 <h2>Examples</h2>
 
-<a href="http://mapmeld.github.io/vanishing-glass/">An example map</a> which adds a marker to a map. <a href="https://github.com/mapmeld/vanishing-glass/blob/gh-pages/vanishing.py">Python source</a>
+<a href="http://cityofboston.github.io/vanishing-glass/">An example map</a> which adds a marker to a map. <a href="https://github.com/cityofboston/vanishing-glass/blob/gh-pages/vanishing.py">Python source</a>
 
-<a href="http://mapmeld.github.io/vanishing-glass/usejson.html">A more complex example</a>, loading JSON from ArcGIS Server API.
+<a href="http://cityofboston.github.io/vanishing-glass/usejson.html">A more complex example</a>, loading JSON from ArcGIS Server API.
 
 <h2>Components</h2>
 
