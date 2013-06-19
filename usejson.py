@@ -22,7 +22,7 @@ def on_complete(req):
     
     if req.status==200 or req.status==0:
         # returned successfully
-        mypts = json.parse( req.text )
+        mypts = json.loads( req.text )
         
         for feature in mypts.features:
 
