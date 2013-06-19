@@ -11,9 +11,9 @@ so projects can be hosted via GitHub Pages.
 
 <h2>Components</h2>
 
-<a href="http:/brython.info">Brython</a> is an open source (New BSD License) framework to write web apps and client-side code in Python
+<a href="http:/brython.info">Brython</a> is an open source (New BSD License) framework to write web apps and client-side code in Python.
 
-<a href="http://arcgis.com">ArcGIS.com</a> is a web-mapping platform with JavaScript APIs and thousands of datasets
+<a href="http://arcgis.com">ArcGIS.com</a> is a web-mapping platform with JavaScript APIs and thousands of datasets.
 
 <h2>Current Status</h2>
 
