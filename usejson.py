@@ -2,8 +2,8 @@
 # Python that controls an ArcGIS webmap
 
 # import some Brython libraries
+import json
 # import html
-# import json
 
 # import essential JS objects
 main_map = JSObject(main_map)
@@ -13,7 +13,6 @@ SpatialReference = JSObject(wgs84)
 Point = JSObject(ptmaker)
 PictureMarkerSymbol = JSObject(picmaker)
 Graphic = JSObject(grmaker)
-jsonparse = JSObject(jsonparse)
 
 # re-center map
 main_map.centerAndZoom( [ -71.08017, 42.355626 ], 11 )
@@ -23,11 +22,9 @@ def on_complete(req):
     
     if req.status==200 or req.status==0:
         # returned successfully
-        mypts = JSObject( jsonparse( req.text ) )        
+        mypts = json.parse( req.text )
         
         for feature in mypts.features:
-
-          feature = JSObject(feature)
 
           # can decide how to map these points using Python code
           # for example:

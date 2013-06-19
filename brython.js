@@ -3050,7 +3050,7 @@ throw ImportError("No module named '"+module+"'")}, 5000)
 return[$xmlhttp,fake_qs,timer]
 }
 function $import_js(module,alias,names){
-var filepath=__BRYTHON__.brython_path+'libs/' + module
+var filepath='libs/' + module
 return $import_js_generic(module,alias,names,filepath)
 }
 function $import_js_generic(module,alias,names,filepath){
@@ -4030,7 +4030,7 @@ var C=new $NodeCtx(new_node)
 var target_expr=new $ExprCtx(C,'left',true)
 target_expr.tree=target.tree
 var assign=new $AssignCtx(target_expr)
-assign.tree[1]=new $JSCode('$iter'+$loop_num+'.__item__($i'+$loop_num+')')
+assign.tree[1]=new $JSCode('JSObject.__call__($iter'+$loop_num+'.__item__($i'+$loop_num+'))')
 node.parent.children[rank+1].children=children
 $loop_num++
 }
